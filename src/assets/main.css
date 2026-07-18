@@ -1,0 +1,14 @@
+@import './base.css';
+
+header {
+  height: 110px;
+}
+
+.container {
+  width: 1055px;
+  margin: 0 auto;
+}
+
+body {
+  font-family: 'Nunito Sans', sans-serif;
+}

@@ -52,6 +52,10 @@ let isConnected = false
 header {
   border-bottom: solid 1px rgb(48, 48, 89);
   height: 120px;
+  position: sticky;
+  top: 0px;
+  background-color: white;
+  z-index: 5;
 }
 
 #research {
@@ -96,6 +100,10 @@ input::-webkit-input-placeholder {
 }
 input::-moz-placeholder {
   color: black;
+}
+
+input:focus {
+  outline: none;
 }
 
 #search + svg {

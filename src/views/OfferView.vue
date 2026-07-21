@@ -1,10 +1,13 @@
 <script setup>
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, computed } from 'vue'
 import axios from 'axios'
+import { useCycleList } from '@vueuse/core'
 
 const props = defineProps({ id: String })
 
 const offerInfos = ref(null)
+const dateOfPublication = ref('')
+const goodPrice = ref('')
 
 onMounted(async () => {
   try {
@@ -14,25 +17,62 @@ onMounted(async () => {
 
     offerInfos.value = data.data.attributes
 
-    console.log(offerInfos.value.owner.data.attributes.avatar)
+    let publishedDate = offerInfos.value.publishedAt
+    let newDate = publishedDate.slice(0, 10)
+    newDate = newDate.replaceAll('-', '/')
+    newDate = newDate.split('/').reverse().join()
+    newDate = newDate.replaceAll(',', '/')
+
+    dateOfPublication.value = newDate
   } catch (error) {
     console.log(error)
   }
 })
+
+const formatedPrice = computed(() => {
+  let price = offerInfos.value.price
+  price = price.toString()
+  if (price.length > 4) {
+    price = Number(price).toLocaleString('fr-FR')
+  }
+  return price
+})
+
+const carousselPicture = computed(() => {
+  const urlArray = []
+  for (let i = 0; i < offerInfos.value.pictures.data.length; i++) {
+    urlArray.push(offerInfos.value.pictures.data[i].attributes.url)
+  }
+
+  const { state, next, prev } = useCycleList(urlArray)
+
+  return { state, next, prev }
+})
 </script>
 
 <template>
-  <p v-if="offerInfos === null">Charggement en cours ...</p>
+  <p v-if="offerInfos === null">Chargement en cours ...</p>
   <section v-else class="container">
     <div id="offerDiv">
-      <img
-        :src="offerInfos.pictures.data[0].attributes.url"
-        alt="photo principal de l'article"
-        id="article"
-      />
+      <div class="caroussel">
+        <font-awesome-icon
+          :icon="['fas', 'angle-left']"
+          @click="carousselPicture.prev()"
+          v-if="offerInfos.pictures.data?.length > 1"
+        />
+
+        <img :src="carousselPicture.state.value" alt="" id="article" />
+
+        <font-awesome-icon
+          :icon="['fas', 'angle-right']"
+          @click="carousselPicture.next()"
+          v-if="offerInfos.pictures.data?.length > 1"
+        />
+      </div>
+
       <h1>{{ offerInfos.title }}</h1>
-      <p>{{ offerInfos.price }} €</p>
-      <span>{{ offerInfos.publishedAt }}</span>
+      <p>{{ formatedPrice }} €</p>
+      <span>{{ dateOfPublication }}</span>
       <div id="description">
         <h3>Description</h3>
         <p>{{ offerInfos.description }}</p>
@@ -94,6 +134,21 @@ section {
 #offerDiv img {
   align-self: center;
   margin-bottom: 30px;
+}
+
+.caroussel {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+}
+
+.caroussel button {
+  background-color: white;
+  cursor: pointer;
+}
+
+.caroussel svg {
+  color: black;
 }
 
 h1 {

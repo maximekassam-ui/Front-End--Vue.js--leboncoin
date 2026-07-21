@@ -11,6 +11,14 @@ let newDate = publishedDate.slice(0, 10)
 newDate = newDate.replaceAll('-', '/')
 newDate = newDate.split('/').reverse().join()
 newDate = newDate.replaceAll(',', '/')
+
+let price = articleInfo.price
+price = price.toString()
+if (price.length > 4) {
+  price = Number(price).toLocaleString('fr-FR')
+}
+
+console.log(price)
 </script>
 
 <template>
@@ -31,7 +39,7 @@ newDate = newDate.replaceAll(',', '/')
       alt="photo article"
     />
     <h3>{{ articleInfo.title }}</h3>
-    <p id="price">{{ articleInfo.price }} €</p>
+    <p id="price">{{ price }} €</p>
     <div id="date">
       <span>{{ newDate }}</span>
       <font-awesome-icon :icon="['far', 'heart']" />

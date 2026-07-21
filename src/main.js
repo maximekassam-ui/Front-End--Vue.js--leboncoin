@@ -16,6 +16,8 @@ import {
   faCircle,
   faMapMarkerAlt,
   faCheckDouble,
+  faAngleRight,
+  faAngleLeft,
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -28,6 +30,8 @@ library.add(
   faMapMarkerAlt,
   faCheckDouble,
   faClock,
+  faAngleRight,
+  faAngleLeft,
 )
 
 app.use(router)

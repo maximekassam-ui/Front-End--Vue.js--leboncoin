@@ -18,7 +18,6 @@ onMounted(async () => {
     // console.log(data)
 
     articleList.value = data.data
-    console.log(articleList.value)
   } catch (error) {
     console.log(error)
   }

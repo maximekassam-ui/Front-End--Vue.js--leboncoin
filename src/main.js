@@ -1,6 +1,6 @@
 import './assets/main.css'
 
-import { createApp } from 'vue'
+import { createApp, ref } from 'vue'
 import App from './App.vue'
 import router from './router'
 
@@ -35,5 +35,18 @@ library.add(
 )
 
 app.use(router)
+
+const userInfos = ref({})
+const changeUserInfos = (username, jwt) => {
+  userInfos.value = {
+    username: username,
+    jwt: jwt,
+  }
+}
+
+app.provide('GlobalStore', {
+  userInfos: userInfos,
+  changeUserInfos: changeUserInfos,
+})
 
 app.component('font-awesome-icon', FontAwesomeIcon).mount('#app')

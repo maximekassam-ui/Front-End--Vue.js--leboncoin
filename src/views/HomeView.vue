@@ -28,7 +28,9 @@ onMounted(async () => {
   <main>
     <p class="container" v-if="articleList.length === 0">Chargement en cours ...</p>
     <div v-else class="container">
-      <div><h2>Des millions de petites annonces et autant d'occasions de se faire plaisir</h2></div>
+      <div>
+        <h2>Des millions de petites annonces et autant d'occasions de se faire plaisir !</h2>
+      </div>
 
       <TimeToSell />
       <section class="offers">

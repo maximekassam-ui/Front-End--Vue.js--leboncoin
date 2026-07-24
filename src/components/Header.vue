@@ -1,6 +1,10 @@
 <script setup>
 import { RouterLink } from 'vue-router'
 import BtnPublishOffer from './BtnPublishOffer.vue'
+import { inject } from 'vue'
+
+const GlobalStore = inject('GlobalStore')
+console.log(GlobalStore.userInfos.value)
 
 let isConnected = false
 </script>
@@ -18,10 +22,13 @@ let isConnected = false
           <font-awesome-icon :icon="['fas', 'search']" />
         </div>
       </section>
-      <div id="connection" v-if="isConnected === false">
-        <font-awesome-icon :icon="['far', 'user']" />
-        <p>Se connecter</p>
-      </div>
+      <RouterLink :to="{ name: 'login' }" v-if="isConnected === false"
+        ><div id="connection">
+          <font-awesome-icon :icon="['far', 'user']" />
+          <p>Se connecter</p>
+        </div></RouterLink
+      >
+
       <font-awesome-icon v-else :icon="['fas', 'sign-out-alt']" />
     </div>
     <nav id="navigation" class="container">

@@ -9,7 +9,14 @@ const app = createApp(App)
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-import { faPlusSquare, faUser, faHeart, faClock } from '@fortawesome/free-regular-svg-icons'
+import {
+  faPlusSquare,
+  faUser,
+  faHeart,
+  faClock,
+  faEyeSlash,
+  faEye,
+} from '@fortawesome/free-regular-svg-icons'
 import {
   faSearch,
   faSignOutAlt,
@@ -18,6 +25,7 @@ import {
   faCheckDouble,
   faAngleRight,
   faAngleLeft,
+  faArrowRight,
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -32,6 +40,9 @@ library.add(
   faClock,
   faAngleRight,
   faAngleLeft,
+  faArrowRight,
+  faEyeSlash,
+  faEye,
 )
 
 app.use(router)
@@ -44,9 +55,15 @@ const changeUserInfos = (username, jwt) => {
   }
 }
 
+const deconnectUser = () => {
+  userInfos.value = {}
+  router.push({ name: 'home' })
+}
+
 app.provide('GlobalStore', {
   userInfos: userInfos,
   changeUserInfos: changeUserInfos,
+  deconnectUser: deconnectUser,
 })
 
 app.component('font-awesome-icon', FontAwesomeIcon).mount('#app')

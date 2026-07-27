@@ -22,14 +22,25 @@ let isConnected = false
           <font-awesome-icon :icon="['fas', 'search']" />
         </div>
       </section>
-      <RouterLink :to="{ name: 'login' }" v-if="isConnected === false"
+      <div id="userProfil" v-if="GlobalStore.userInfos.value.username">
+        <div id="profil">
+          <font-awesome-icon :icon="['far', 'user']" />
+          <p>{{ GlobalStore.userInfos.value.username }}</p>
+        </div>
+
+        <font-awesome-icon
+          :icon="['fas', 'sign-out-alt']"
+          @click="GlobalStore.deconnectUser"
+          id="logout"
+        />
+      </div>
+
+      <RouterLink :to="{ name: 'login' }" v-else
         ><div id="connection">
           <font-awesome-icon :icon="['far', 'user']" />
           <p>Se connecter</p>
         </div></RouterLink
       >
-
-      <font-awesome-icon v-else :icon="['fas', 'sign-out-alt']" />
     </div>
     <nav id="navigation" class="container">
       <p>Immobilier</p>
@@ -58,7 +69,7 @@ let isConnected = false
 <style scoped>
 header {
   border-bottom: solid 1px rgb(48, 48, 89);
-  height: 120px;
+  height: var(--header-height);
   position: sticky;
   top: 0px;
   background-color: white;
@@ -141,6 +152,24 @@ input:focus {
   font-size: 13px;
 }
 
+#profil {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+#profil p {
+  font-size: 14px;
+}
+#userProfil {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+#logout {
+  color: grey;
+  font-size: 14px;
+}
 /* ------------------- PARTIE NAVIGATION-------------------- */
 
 nav {

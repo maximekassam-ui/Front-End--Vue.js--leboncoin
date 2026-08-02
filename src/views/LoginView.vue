@@ -28,6 +28,8 @@ const handleSubmit = async () => {
 
       GlobalStore.changeUserInfos(data.user.username, data.jwt)
 
+      $cookies.set('jwtCookie', { jwt: data.jwt, username: data.user.username })
+
       router.push({ name: 'home' })
     } catch (error) {
       console.log(error)

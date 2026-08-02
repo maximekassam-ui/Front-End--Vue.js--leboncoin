@@ -30,7 +30,7 @@ let isConnected = false
 
         <font-awesome-icon
           :icon="['fas', 'sign-out-alt']"
-          @click="GlobalStore.deconnectUser"
+          @click="GlobalStore.disconnectUser"
           id="logout"
         />
       </div>

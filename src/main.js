@@ -4,6 +4,8 @@ import { createApp, ref } from 'vue'
 import App from './App.vue'
 import router from './router'
 
+import VueCookies from 'vue-cookies'
+
 const app = createApp(App)
 
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -47,7 +49,7 @@ library.add(
 
 app.use(router)
 
-const userInfos = ref({})
+const userInfos = ref($cookies.get('jwtCookie') || '')
 const changeUserInfos = (username, jwt) => {
   userInfos.value = {
     username: username,
@@ -55,15 +57,18 @@ const changeUserInfos = (username, jwt) => {
   }
 }
 
-const deconnectUser = () => {
+const disconnectUser = () => {
   userInfos.value = {}
+  $cookies.remove('jwtCookies')
   router.push({ name: 'home' })
 }
 
 app.provide('GlobalStore', {
   userInfos: userInfos,
   changeUserInfos: changeUserInfos,
-  deconnectUser: deconnectUser,
+  disconnectUser: disconnectUser,
 })
+
+app.use(VueCookies)
 
 app.component('font-awesome-icon', FontAwesomeIcon).mount('#app')

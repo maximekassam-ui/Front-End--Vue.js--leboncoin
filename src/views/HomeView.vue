@@ -1,21 +1,29 @@
 <script setup>
 import { RouterLink } from 'vue-router'
 
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, watchEffect } from 'vue'
 import axios from 'axios'
 
 import OfferCard from '@/components/OfferCard.vue'
 import TimeToSell from '@/components/TimeToSell.vue'
+import FilterPart from '@/components/FilterPart.vue'
+
+const props = defineProps(['sort', 'pricemin', 'pricemax'])
+
+// ------------------
+const url = `https://site--strapileboncoin--2m8zk47gvydr.code.run/api/offers?populate[0]=pictures&populate[1]=owner.avatar&sort=${props.sort}`
+console.log(url)
+// -----------------
 
 const articleList = ref([])
 
 onMounted(async () => {
   try {
     const { data } = await axios.get(
-      'https://site--strapileboncoin--2m8zk47gvydr.code.run/api/offers?populate[0]=pictures&populate[1]=owner.avatar',
+      `https://site--strapileboncoin--2m8zk47gvydr.code.run/api/offers?populate[0]=pictures&populate[1]=owner.avatar&sort=${props.sort}`,
     )
 
-    // console.log(data)
+    // console.log(data.data)
 
     articleList.value = data.data
   } catch (error) {
@@ -28,6 +36,7 @@ onMounted(async () => {
   <main>
     <p class="container" v-if="articleList.length === 0">Chargement en cours ...</p>
     <div v-else class="container">
+      <FilterPart :sort="sort" :pricemin="pricemin" :pricemax="pricemax" />
       <div>
         <h2>Des millions de petites annonces et autant d'occasions de se faire plaisir !</h2>
       </div>

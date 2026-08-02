@@ -20,7 +20,9 @@
     "@fortawesome/vue-fontawesome": "^3.3.2",
     "@vueuse/core": "^14.3.0",
     "axios": "^1.18.1",
-    "vue": "^3.5.38",
+    "cookies": "^0.9.1",
+    "vue": "^3.5.40",
+    "vue-cookies": "^1.8.6",
     "vue-router": "^5.1.0"
   },
   "devDependencies": {

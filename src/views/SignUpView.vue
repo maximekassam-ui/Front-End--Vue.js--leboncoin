@@ -36,7 +36,12 @@ const handleSubmit = async () => {
       console.log(response)
       console.log(GlobalStore.userInfos.value)
 
-      //   router.push({ name: 'home' })
+      $cookies.set('jwtCookie', {
+        jwt: GlobalStore.userInfos.value.jwt,
+        username: GlobalStore.userInfos.value.username,
+      })
+
+      router.push({ name: 'home' })
     } catch (error) {
       console.log(error.response.data.error)
       errorMessage.value = 'Une erreur est survenue, désolé !'

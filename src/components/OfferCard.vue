@@ -17,8 +17,6 @@ price = price.toString()
 if (price.length > 4) {
   price = Number(price).toLocaleString('fr-FR')
 }
-
-console.log(price)
 </script>
 
 <template>
@@ -34,10 +32,12 @@ console.log(price)
     </div>
 
     <img
+      v-if="articleList.attributes.pictures.data"
       id="productPicture"
       :src="articleList.attributes.pictures.data[0].attributes.url"
       alt="photo article"
     />
+
     <h3>{{ articleInfo.title }}</h3>
     <p id="price">{{ price }} €</p>
     <div id="date">

@@ -25,10 +25,15 @@ import BtnPublishOffer from './BtnPublishOffer.vue'
 
 div > div {
   display: flex;
+  align-items: center;
   gap: 20px;
 }
 
 img {
   border-radius: 15px;
+}
+p {
+  font-size: 20px;
+  font-weight: bold;
 }
 </style>

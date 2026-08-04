@@ -13,9 +13,11 @@ const router = createRouter({
       component: HomeView,
       props: (route) => {
         return {
+          title: route.query.title || '',
           pricemin: Number(route.query.pricemin) || '',
           pricemax: Number(route.query.pricemax) || '',
           sort: route.query.sort || '',
+          page: parseInt(route.query.page) || 1,
         }
       },
     },
@@ -36,6 +38,9 @@ const router = createRouter({
       component: SignupView,
     },
   ],
+  scrollBehavior() {
+    return { top: 0, left: 0 }
+  },
 })
 
 export default router

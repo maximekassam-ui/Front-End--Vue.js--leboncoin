@@ -1,12 +1,33 @@
 <script setup>
-import { RouterLink } from 'vue-router'
+import { RouterLink, useRoute, useRouter } from 'vue-router'
 import BtnPublishOffer from './BtnPublishOffer.vue'
-import { inject } from 'vue'
+import { inject, ref } from 'vue'
 
 const GlobalStore = inject('GlobalStore')
 console.log(GlobalStore.userInfos.value)
 
 let isConnected = false
+
+const route = useRoute()
+const router = useRouter()
+
+const search = ref('')
+
+const handleResearch = () => {
+  console.log(search.value, route.query)
+
+  const queries = { ...route.query }
+
+  if (search.value) {
+    queries.title = search.value
+  } else {
+    delete queries.title
+  }
+
+  queries.page = 1
+
+  router.push({ name: 'home', query: queries })
+}
 </script>
 
 <template>
@@ -17,10 +38,10 @@ let isConnected = false
       <section>
         <BtnPublishOffer />
 
-        <div>
-          <input type="text" name="search" id="search" placeholder="Rechercher sur leboncoin" />
-          <font-awesome-icon :icon="['fas', 'search']" />
-        </div>
+        <form @submit.prevent="handleResearch">
+          <input type="text" v-model="search" id="search" placeholder="Rechercher sur leboncoin" />
+          <button><font-awesome-icon :icon="['fas', 'search']" class="glasse" /></button>
+        </form>
       </section>
       <div id="userProfil" v-if="GlobalStore.userInfos.value.username">
         <div id="profil">
@@ -95,7 +116,7 @@ section {
   gap: 30px;
 }
 
-section > div {
+section > form {
   background-color: #f4f9fd;
   width: 280px;
   padding: 10px;
@@ -109,28 +130,36 @@ section > div {
   width: 200px;
   background-color: #f4f9fd;
   border: none;
+  height: 25px;
 }
 
 input::-webkit-input-placeholder {
-  color: black;
+  color: grey;
   font-size: 15px;
   font-weight: 500;
 }
 input::-moz-placeholder {
-  color: black;
+  color: grey;
 }
 
 input:focus {
   outline: none;
 }
 
-#search + svg {
+#search + button {
+  background-color: #ec5b1200;
+  border: none;
+}
+
+.glasse {
   background-color: #ec5a12;
   font-size: 10px;
   height: 27px;
   width: 27px;
   padding: 6px;
   border-radius: 3px;
+  border: none;
+  cursor: pointer;
 }
 
 /* --------------PARTIE CONNEXION ---------------- */

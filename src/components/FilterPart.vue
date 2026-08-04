@@ -2,13 +2,14 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
-const props = defineProps(['sort', 'pricemin', 'pricemax'])
+const props = defineProps(['sort', 'pricemin', 'pricemax', 'page', 'title'])
 
 const router = useRouter()
 
 const priceMin = ref(props.pricemin)
 const priceMax = ref(props.pricemax)
 const sort = ref(props.sort)
+const page = ref(props.page)
 
 // ------------------------------
 const submitFilters = () => {
@@ -16,6 +17,7 @@ const submitFilters = () => {
 
   if (priceMin.value) {
     queries.pricemin = priceMin.value
+    queries.page = 1
   } else {
     delete queries.pricemin
   }
@@ -32,18 +34,18 @@ const submitFilters = () => {
     delete queries.sort
   }
 
-  // penser a mettre la pagination à 1
+  queries.page = 1
 
   router.push({ name: 'home', query: queries })
 }
 </script>
 
 <template>
-  <form @submit.prevent="submitFilters">
+  <form @submit.prevent="submitFilters" class="container">
     <div>
       <p>Prix</p>
       <div>
-        <div>
+        <div class="price">
           <input
             type="number"
             name="priceMin"
@@ -54,7 +56,7 @@ const submitFilters = () => {
           />
           <label for="priceMin">€</label>
         </div>
-        <div>
+        <div class="price">
           <input
             type="number"
             name="priceMax"
@@ -69,7 +71,7 @@ const submitFilters = () => {
     </div>
     <div>
       <p>Tri</p>
-      <div>
+      <div id="sort">
         <label>
           Prix croissants
           <input type="radio" value="price:asc" id="price:asc" v-model="sort"
@@ -86,4 +88,73 @@ const submitFilters = () => {
   </form>
 </template>
 
-<style scoped></style>
+<style scoped>
+form {
+  height: 110px;
+  display: flex;
+  align-items: center;
+  padding-top: 20px;
+}
+form > div {
+  height: 74px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 10px;
+}
+form > div > div {
+  height: 46px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  gap: 30px;
+}
+form > div > div:first-child {
+}
+
+/* Price Part -------------- */
+
+div > p {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.price {
+  border: solid #e6eaee 1px;
+  width: 190px;
+  border-radius: 15px;
+}
+.price > input {
+  height: 40px;
+  width: 150px;
+  border: none;
+  border-right: solid 1px #e6eaee;
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+  padding: 0 7px;
+  font-size: 16px;
+}
+.price > label {
+  font-size: 14px;
+  text-align: center;
+  margin-left: 10px;
+}
+
+#sort {
+  gap: 10px;
+}
+
+label > input {
+  margin-right: 10px;
+}
+button {
+  background-color: #ec5a12;
+  color: #fff;
+  padding: 10px 10px;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: bold;
+}
+</style>

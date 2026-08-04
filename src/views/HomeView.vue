@@ -7,28 +7,37 @@ import axios from 'axios'
 import OfferCard from '@/components/OfferCard.vue'
 import TimeToSell from '@/components/TimeToSell.vue'
 import FilterPart from '@/components/FilterPart.vue'
+import Pagination from '@/components/Pagination.vue'
 
-const props = defineProps(['sort', 'pricemin', 'pricemax'])
-
-// ------------------
-const url = `https://site--strapileboncoin--2m8zk47gvydr.code.run/api/offers?populate[0]=pictures&populate[1]=owner.avatar&sort=${props.sort}`
-console.log(url)
-// -----------------
+const props = defineProps(['sort', 'pricemin', 'pricemax', 'title', 'page'])
 
 const articleList = ref([])
+const numOfPages = ref()
 
-onMounted(async () => {
-  try {
-    const { data } = await axios.get(
-      `https://site--strapileboncoin--2m8zk47gvydr.code.run/api/offers?populate[0]=pictures&populate[1]=owner.avatar&sort=${props.sort}`,
-    )
+onMounted(() => {
+  watchEffect(async () => {
+    try {
+      let priceFilters = ''
 
-    // console.log(data.data)
+      if (props.pricemin) {
+        priceFilters += `&filters[price][$gte]=${props.pricemin}`
+      }
+      if (props.pricemax) {
+        priceFilters += `&filters[price][$lte]=${props.pricemax}`
+      }
 
-    articleList.value = data.data
-  } catch (error) {
-    console.log(error)
-  }
+      const { data } = await axios.get(
+        `https://site--strapileboncoin--2m8zk47gvydr.code.run/api/offers?populate[0]=pictures&populate[1]=owner.avatar&sort=${props.sort}${priceFilters}&filters[title][$containsi]=${props.title}&pagination[page]=${props.page}&pagination[pageSize]=10`,
+      )
+
+      console.log(data.meta.pagination)
+
+      articleList.value = data.data
+      numOfPages.value = data.meta.pagination.pageCount
+    } catch (error) {
+      console.log(error)
+    }
+  })
 })
 </script>
 
@@ -36,7 +45,13 @@ onMounted(async () => {
   <main>
     <p class="container" v-if="articleList.length === 0">Chargement en cours ...</p>
     <div v-else class="container">
-      <FilterPart :sort="sort" :pricemin="pricemin" :pricemax="pricemax" />
+      <FilterPart
+        :sort="sort"
+        :pricemin="pricemin"
+        :pricemax="pricemax"
+        :page="page"
+        :title="title"
+      />
       <div>
         <h2>Des millions de petites annonces et autant d'occasions de se faire plaisir !</h2>
       </div>
@@ -50,15 +65,24 @@ onMounted(async () => {
           ><OfferCard :articleList="offer"
         /></RouterLink>
       </section>
+      <Pagination
+        :sort="sort"
+        :pricemin="pricemin"
+        :pricemax="pricemax"
+        :page="page"
+        :title="title"
+        :numOfPages="numOfPages"
+      />
     </div>
   </main>
 </template>
 
 <style scoped>
 h2 {
-  font-size: 22px;
+  font-size: 24px;
   text-align: center;
   padding: 25px;
+  font-weight: bold;
 }
 
 .offers {

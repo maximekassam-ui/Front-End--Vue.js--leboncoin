@@ -50,10 +50,11 @@ library.add(
 app.use(router)
 
 const userInfos = ref($cookies.get('jwtCookie') || '')
-const changeUserInfos = (username, jwt) => {
+const changeUserInfos = (username, jwt, id) => {
   userInfos.value = {
     username: username,
     jwt: jwt,
+    id: id,
   }
 }
 

@@ -3,7 +3,7 @@ import { RouterLink } from 'vue-router'
 import { ref, inject } from 'vue'
 import axios from 'axios'
 import { errorMessages } from 'vue/compiler-sfc'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 
 const email = ref('')
 const password = ref('')
@@ -14,6 +14,7 @@ const isSubmitting = ref(false)
 
 const GlobalStore = inject('GlobalStore')
 const router = useRouter()
+const route = useRoute()
 
 const handleSubmit = async () => {
   isSubmitting.value = true
@@ -26,11 +27,11 @@ const handleSubmit = async () => {
       )
       console.log(data)
 
-      GlobalStore.changeUserInfos(data.user.username, data.jwt)
+      GlobalStore.changeUserInfos(data.user.username, data.jwt, data.user.id)
 
-      $cookies.set('jwtCookie', { jwt: data.jwt, username: data.user.username })
+      $cookies.set('jwtCookie', { jwt: data.jwt, username: data.user.username, id: data.user.id })
 
-      router.push({ name: 'home' })
+      router.push({ name: route.query.redirect || 'home' })
     } catch (error) {
       console.log(error)
 

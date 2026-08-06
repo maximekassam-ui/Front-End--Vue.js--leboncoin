@@ -4,7 +4,6 @@ import BtnPublishOffer from './BtnPublishOffer.vue'
 import { inject, ref } from 'vue'
 
 const GlobalStore = inject('GlobalStore')
-console.log(GlobalStore.userInfos.value)
 
 let isConnected = false
 
@@ -36,7 +35,9 @@ const handleResearch = () => {
       <RouterLink :to="{ name: 'home' }"> <img src="../assets/img/logo.svg" alt="" /> </RouterLink>
 
       <section>
-        <BtnPublishOffer />
+        <RouterLink :to="{ name: 'publish' }">
+          <BtnPublishOffer />
+        </RouterLink>
 
         <form @submit.prevent="handleResearch">
           <input type="text" v-model="search" id="search" placeholder="Rechercher sur leboncoin" />

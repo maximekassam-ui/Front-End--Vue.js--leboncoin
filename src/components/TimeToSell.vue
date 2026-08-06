@@ -1,5 +1,6 @@
 <script setup>
 import BtnPublishOffer from './BtnPublishOffer.vue'
+import { RouterLink } from 'vue-router'
 </script>
 
 <template>
@@ -7,7 +8,9 @@ import BtnPublishOffer from './BtnPublishOffer.vue'
     <img src="../assets/img/onde-corail.svg" alt="onde corail" />
     <div>
       <p>C'est le moment de vendre</p>
-      <BtnPublishOffer />
+      <RouterLink :to="{ name: 'publish' }">
+        <BtnPublishOffer />
+      </RouterLink>
     </div>
     <img src="../assets/img/feuille-bleue.svg" alt="" />
   </div>

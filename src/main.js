@@ -60,7 +60,7 @@ const changeUserInfos = (username, jwt, id) => {
 
 const disconnectUser = () => {
   userInfos.value = {}
-  $cookies.remove('jwtCookies')
+  $cookies.remove('jwtCookie')
   router.push({ name: 'home' })
 }
 

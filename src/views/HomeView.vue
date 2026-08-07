@@ -30,7 +30,7 @@ onMounted(() => {
         `https://site--strapileboncoin--2m8zk47gvydr.code.run/api/offers?populate[0]=pictures&populate[1]=owner.avatar&sort=${props.sort}${priceFilters}&filters[title][$containsi]=${props.title}&pagination[page]=${props.page}&pagination[pageSize]=10`,
       )
 
-      console.log(data.meta.pagination)
+      // console.log(data.meta.pagination)
 
       articleList.value = data.data
       numOfPages.value = data.meta.pagination.pageCount

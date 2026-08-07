@@ -10,50 +10,55 @@ const description = ref('')
 const price = ref(null)
 const pictures = ref(null)
 const isPublishing = ref(false)
+const isFiled = ref(true)
 
 const GlobalStore = inject('GlobalStore')
 const router = useRouter()
 
 const handleSubmit = async () => {
-  isPublishing.value = true
+  if (title.value && description.value && price.value && pictures.value) {
+    isPublishing.value = true
 
-  const formData = new FormData()
+    const formData = new FormData()
 
-  for (const key in pictures.value) {
-    if (Object.hasOwnProperty.call(pictures.value, key)) {
-      formData.append('files.pictures', pictures.value[key])
+    for (const key in pictures.value) {
+      if (Object.hasOwnProperty.call(pictures.value, key)) {
+        formData.append('files.pictures', pictures.value[key])
+      }
     }
-  }
 
-  const stringifiedInfos = JSON.stringify({
-    title: title.value,
-    description: description.value,
-    price: price.value,
-    owner: GlobalStore.userInfos.value.id,
-  })
+    const stringifiedInfos = JSON.stringify({
+      title: title.value,
+      description: description.value,
+      price: price.value,
+      owner: GlobalStore.userInfos.value.id,
+    })
 
-  //   console.log(stringifiedInfos)
+    //   console.log(stringifiedInfos)
 
-  formData.append('data', stringifiedInfos)
+    formData.append('data', stringifiedInfos)
 
-  try {
-    const { data } = await axios.post(
-      'https://site--strapileboncoin--2m8zk47gvydr.code.run/api/offers',
-      formData,
-      {
-        headers: {
-          Authorization: `Bearer ${GlobalStore.userInfos.value.jwt}`,
-          'Content-type': 'multipart/form-data',
+    try {
+      const { data } = await axios.post(
+        'https://site--strapileboncoin--2m8zk47gvydr.code.run/api/offers',
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${GlobalStore.userInfos.value.jwt}`,
+            'Content-type': 'multipart/form-data',
+          },
         },
-      },
-    )
-    console.log('response', data.data.id)
-    router.push({ name: 'offer', params: { id: data.data.id } })
-    alert('Annonce publiée')
-  } catch (error) {
-    console.log(error)
+      )
+      console.log('response', data.data.id)
+      router.push({ name: 'offer', params: { id: data.data.id } })
+      alert('Annonce publiée')
+    } catch (error) {
+      console.log(error)
+    }
+    isPublishing.value = false
+  } else {
+    isFiled.value = false
   }
-  isPublishing.value = false
 }
 
 const urlsListPreview = computed(() => {
@@ -76,7 +81,7 @@ const urlsListPreview = computed(() => {
 
         <div>
           <label for="title">Titre de l'annonce</label>
-          <input type="text" name="title" id="title" v-model="title" />
+          <input type="text" name="title" id="title" v-model="title" @input="isFiled = true" />
           <p>Vous n'avez pas besoin de mentionner « Achat » ou « Vente » ici.</p>
         </div>
 
@@ -88,6 +93,7 @@ const urlsListPreview = computed(() => {
             v-model="description"
             cols="30"
             rows="10"
+            @input="isFiled = true"
           ></textarea>
           <p>
             Nous vous rappelons que la vente de contrefaçons est interdite. Nous vous invitons à
@@ -101,7 +107,10 @@ const urlsListPreview = computed(() => {
 
         <div>
           <label for="price">Votre prix de vente</label>
-          <div><input type="number" name="price" id="price" v-model="price" /> <span>€</span></div>
+          <div>
+            <input type="number" name="price" id="price" v-model="price" @input="isFiled = true" />
+            <span>€</span>
+          </div>
         </div>
 
         <div>
@@ -111,7 +120,7 @@ const urlsListPreview = computed(() => {
             name="pictures"
             id="pictures"
             multiple
-            @input="(event) => (pictures = event.target.files)"
+            @input="(event) => ((pictures = event.target.files), (isFiled = true))"
           />
         </div>
         <div v-if="pictures">
@@ -119,6 +128,9 @@ const urlsListPreview = computed(() => {
         </div>
         <p v-if="isPublishing">Envoi en cours...</p>
         <button v-else>Déposer mon annonce</button>
+        <div v-if="!isFiled">
+          <p>Veuillez remplir tous les champs</p>
+        </div>
       </form>
     </div>
   </main>

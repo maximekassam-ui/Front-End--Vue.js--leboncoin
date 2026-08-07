@@ -31,14 +31,19 @@ const handleSubmit = async () => {
           password: password.value,
         },
       )
-      GlobalStore.changeUserInfos(response.data.user.username, response.data.jwt)
+      GlobalStore.changeUserInfos(
+        response.data.user.username,
+        response.data.jwt,
+        response.data.user.id,
+      )
 
-      console.log(response)
-      console.log(GlobalStore.userInfos.value)
+      // console.log(response)
+      // console.log(GlobalStore.userInfos.value)
 
       $cookies.set('jwtCookie', {
         jwt: GlobalStore.userInfos.value.jwt,
         username: GlobalStore.userInfos.value.username,
+        id: GlobalStore.userInfos.value.id,
       })
 
       router.push({ name: 'home' })

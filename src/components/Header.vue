@@ -35,9 +35,7 @@ const handleResearch = () => {
       <RouterLink :to="{ name: 'home' }"> <img src="../assets/img/logo.svg" alt="" /> </RouterLink>
 
       <section>
-        <RouterLink :to="{ name: 'publish' }">
-          <BtnPublishOffer />
-        </RouterLink>
+        <BtnPublishOffer />
 
         <form @submit.prevent="handleResearch">
           <input type="text" v-model="search" id="search" placeholder="Rechercher sur leboncoin" />

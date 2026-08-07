@@ -8,9 +8,8 @@ import { RouterLink } from 'vue-router'
     <img src="../assets/img/onde-corail.svg" alt="onde corail" />
     <div>
       <p>C'est le moment de vendre</p>
-      <RouterLink :to="{ name: 'publish' }">
-        <BtnPublishOffer />
-      </RouterLink>
+
+      <BtnPublishOffer />
     </div>
     <img src="../assets/img/feuille-bleue.svg" alt="" />
   </div>

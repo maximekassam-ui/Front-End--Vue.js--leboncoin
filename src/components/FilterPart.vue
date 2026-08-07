@@ -107,10 +107,7 @@ form > div > div {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-
   gap: 30px;
-}
-form > div > div:first-child {
 }
 
 /* Price Part -------------- */
@@ -156,5 +153,15 @@ button {
   border-radius: 10px;
   font-size: 14px;
   font-weight: bold;
+}
+/* -------- focus input outline + hide arrow ------- */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input:focus {
+  outline: none;
+  padding: 10px;
 }
 </style>

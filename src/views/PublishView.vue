@@ -4,16 +4,28 @@ import axios from 'axios'
 import LoginView from './LoginView.vue'
 
 import { useRouter } from 'vue-router'
+import { errorMessages } from 'vue/compiler-sfc'
 
 const title = ref('')
 const description = ref('')
 const price = ref(null)
 const pictures = ref(null)
 const isPublishing = ref(false)
-const isFiled = ref(true)
+const errorMessage = ref('')
 
 const GlobalStore = inject('GlobalStore')
 const router = useRouter()
+
+const selectPictures = (event) => {
+  errorMessage.value = ''
+  const numOfFiles = event.target.files.length
+
+  if (numOfFiles <= 10) {
+    pictures.value = event.target.files
+  } else {
+    errorMessage.value = '10 photos maximum '
+  }
+}
 
 const handleSubmit = async () => {
   if (title.value && description.value && price.value && pictures.value) {
@@ -57,7 +69,7 @@ const handleSubmit = async () => {
     }
     isPublishing.value = false
   } else {
-    isFiled.value = false
+    errorMessage.value = 'Veuillez remplir tous les champs'
   }
 }
 
@@ -75,17 +87,17 @@ const urlsListPreview = computed(() => {
 
 <template>
   <main>
-    <div>
+    <div class="container">
       <form @submit.prevent="handleSubmit">
         <h1>Déposer une annonce</h1>
 
-        <div>
+        <div class="titleDiv">
           <label for="title">Titre de l'annonce</label>
-          <input type="text" name="title" id="title" v-model="title" @input="isFiled = true" />
+          <input type="text" name="title" id="title" v-model="title" @input="errorMessage = ''" />
           <p>Vous n'avez pas besoin de mentionner « Achat » ou « Vente » ici.</p>
         </div>
 
-        <div>
+        <div class="textareaDiv">
           <label for="description">Description de l'annonce</label>
           <textarea
             name="description"
@@ -93,7 +105,7 @@ const urlsListPreview = computed(() => {
             v-model="description"
             cols="30"
             rows="10"
-            @input="isFiled = true"
+            @input="errorMessage = ''"
           ></textarea>
           <p>
             Nous vous rappelons que la vente de contrefaçons est interdite. Nous vous invitons à
@@ -105,31 +117,37 @@ const urlsListPreview = computed(() => {
           </p>
         </div>
 
-        <div>
+        <div class="priceDiv">
           <label for="price">Votre prix de vente</label>
           <div>
-            <input type="number" name="price" id="price" v-model="price" @input="isFiled = true" />
+            <input
+              type="number"
+              name="price"
+              id="price"
+              v-model="price"
+              @input="errorMessage = ''"
+            />
             <span>€</span>
           </div>
         </div>
 
-        <div>
-          <label for="pictures">Ajoutez des photos</label>
-          <input
-            type="file"
-            name="pictures"
-            id="pictures"
-            multiple
-            @input="(event) => ((pictures = event.target.files), (isFiled = true))"
-          />
+        <div class="picturesDiv">
+          <label for="pictures"
+            >Ajoutez des photos
+            <div id="fileDiv">
+              <input type="file" name="pictures" id="pictures" multiple @input="selectPictures" />
+              <font-awesome-icon :icon="['fas', 'camera']" />
+              <p>Sélectionnez jusqu'à 10 photos</p>
+            </div></label
+          >
         </div>
         <div v-if="pictures">
           <img v-for="url in urlsListPreview" :src="url" alt="Photos de l'article" />
         </div>
         <p v-if="isPublishing">Envoi en cours...</p>
         <button v-else>Déposer mon annonce</button>
-        <div v-if="!isFiled">
-          <p>Veuillez remplir tous les champs</p>
+        <div v-if="errorMessage">
+          <p>{{ errorMessage }}</p>
         </div>
       </form>
     </div>
@@ -137,9 +155,136 @@ const urlsListPreview = computed(() => {
 </template>
 
 <style scoped>
+main {
+  background-color: #f4f9fe;
+  padding: 40px;
+}
+
+main > div {
+  height: 960px;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 20px;
+}
+
 form {
   display: flex;
   flex-direction: column;
-  gap: 30px;
+
+  justify-content: space-between;
+  height: 100%;
+}
+h1 {
+  font-size: 22px;
+  font-weight: bold;
+}
+.titleDiv,
+.textareaDiv {
+  display: flex;
+  flex-direction: column;
+  width: 770px;
+}
+
+.titleDiv input {
+  height: 46px;
+  border: solid 1px #627c93;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+label {
+  margin-bottom: 12px;
+}
+
+input + p,
+textarea + p {
+  font-size: 12px;
+  color: #627c93;
+  line-height: 14px;
+}
+textarea {
+  border: solid 1px #627c93;
+  height: 212px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.priceDiv,
+.picturesDiv {
+  display: flex;
+  flex-direction: column;
+}
+
+.priceDiv div {
+  height: 42px;
+  width: 230px;
+  border: solid 1px #627c93;
+  border-radius: 10px;
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+.priceDiv div input {
+  border: none;
+  border-right: solid 1px #627c93;
+  width: 185px;
+  height: 40px;
+  border-radius: 10px 0 0 10px;
+}
+
+#pictures {
+  display: none;
+}
+.picturesDiv label {
+  width: 1010px;
+  height: 180px;
+}
+#fileDiv {
+  height: 150px;
+  width: 150px;
+  border: solid 1px #627c93;
+  border-radius: 10px;
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding: 10px;
+}
+#fileDiv p {
+  font-size: 16px;
+  color: #094171;
+  text-align: center;
+}
+svg {
+  font-size: 40px;
+  color: #094171;
+}
+button {
+  background-color: #ec5a12;
+  color: #fff;
+  width: 180px;
+  height: 35px;
+  padding: 10px 10px;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  align-self: flex-end;
+}
+
+/* ----------- focus input outline + hide arrow */
+input:focus,
+textarea:focus {
+  outline: none;
+  padding: 10px;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 </style>

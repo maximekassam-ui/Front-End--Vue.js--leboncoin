@@ -141,13 +141,13 @@ const urlsListPreview = computed(() => {
             </div></label
           >
         </div>
-        <div v-if="pictures">
+        <div v-if="pictures" id="previewImg">
           <img v-for="url in urlsListPreview" :src="url" alt="Photos de l'article" />
         </div>
         <p v-if="isPublishing">Envoi en cours...</p>
         <button v-else>Déposer mon annonce</button>
         <div v-if="errorMessage">
-          <p>{{ errorMessage }}</p>
+          <p id="errorMessage">{{ errorMessage }}</p>
         </div>
       </form>
     </div>
@@ -161,18 +161,17 @@ main {
 }
 
 main > div {
-  height: 960px;
   background-color: #ffffff;
   padding: 20px;
   border-radius: 20px;
+  min-height: 930px;
 }
 
 form {
   display: flex;
   flex-direction: column;
-
   justify-content: space-between;
-  height: 100%;
+  min-height: 930px;
 }
 h1 {
   font-size: 22px;
@@ -275,7 +274,23 @@ button {
   cursor: pointer;
   align-self: flex-end;
 }
-
+#errorMessage {
+  font-size: 18px;
+  color: #ec5a12;
+  text-align: center;
+}
+img {
+  width: calc((100% - 40px) / 5);
+  aspect-ratio: 1/1;
+  border-radius: 10px;
+  object-fit: cover;
+}
+#previewImg {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
 /* ----------- focus input outline + hide arrow */
 input:focus,
 textarea:focus {

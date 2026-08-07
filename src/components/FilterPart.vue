@@ -154,6 +154,7 @@ button {
   font-size: 14px;
   font-weight: bold;
 }
+
 /* -------- focus input outline + hide arrow ------- */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {

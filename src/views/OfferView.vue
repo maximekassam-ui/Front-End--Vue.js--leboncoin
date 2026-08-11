@@ -2,6 +2,7 @@
 import { onMounted, ref, computed } from 'vue'
 import axios from 'axios'
 import { useCycleList } from '@vueuse/core'
+import { RouterLink } from 'vue-router'
 
 const props = defineProps({ id: String })
 
@@ -101,7 +102,10 @@ const carousselPicture = computed(() => {
       </div>
 
       <div id="button">
-        <button style="background-color: #ec5a12">Acheter</button>
+        <RouterLink :to="{ name: 'payment', params: { id: id } }">
+          <button style="background-color: #ec5a12">Acheter</button></RouterLink
+        >
+
         <button style="background: #094171">Message</button>
       </div>
     </div>
@@ -238,5 +242,11 @@ button {
   border: none;
   font-size: 18px;
   color: white;
+}
+a {
+  width: 100%;
+}
+a button {
+  width: 100%;
 }
 </style>

@@ -31,7 +31,7 @@ const handleSubmit = async () => {
 
       $cookies.set('jwtCookie', { jwt: data.jwt, username: data.user.username, id: data.user.id })
 
-      router.push({ name: route.query.redirect || 'home' })
+      router.push({ path: route.query.redirect || '/' })
     } catch (error) {
       console.log(error)
 

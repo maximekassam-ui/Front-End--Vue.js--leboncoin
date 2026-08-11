@@ -29,6 +29,7 @@ import {
   faAngleLeft,
   faArrowRight,
   faCamera,
+  faCheck,
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -47,6 +48,7 @@ library.add(
   faEyeSlash,
   faEye,
   faCamera,
+  faCheck,
 )
 
 app.use(router)

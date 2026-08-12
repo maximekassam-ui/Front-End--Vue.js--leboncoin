@@ -179,11 +179,13 @@ const handlePayment = async () => {
         <p id="isLoading" v-if="isLoading">Chargement en cours...</p>
         <section id="productRecap" v-else>
           <div id="articleDiv">
-            <img
-              :src="articleInfos.attributes.pictures.data[0].attributes.url"
-              alt="photo du produit"
-            />
-            <h3>{{ articleInfos.attributes.title }}</h3>
+            <div id="imgAndTitle">
+              <img
+                :src="articleInfos.attributes.pictures.data[0].attributes.url"
+                alt="photo du produit"
+              />
+              <h3>{{ articleInfos.attributes.title }}</h3>
+            </div>
             <p class="price">{{ articleInfos.attributes.price }} €</p>
           </div>
           <div id="pickUpPart">
@@ -247,7 +249,7 @@ const handlePayment = async () => {
 
 <style scoped>
 main {
-  height: calc(100vh - var(--header-height));
+  min-height: calc(100vh - var(--header-height) - var(--footer-height));
   display: block;
 }
 
@@ -353,6 +355,10 @@ button {
   margin-bottom: 20px;
   cursor: pointer;
 }
+button:disabled {
+  opacity: 0.5;
+  cursor: auto;
+}
 div > p {
   font-size: 12px;
   margin: 5px 0;
@@ -385,11 +391,17 @@ div > p {
   align-items: center;
   padding: 15px;
 }
+#imgAndTitle {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
 
 img {
   height: 80px;
   width: 80px;
   object-fit: cover;
+  border-radius: 5px;
 }
 /* ------------- Shipping Part ---------- */
 h3 {

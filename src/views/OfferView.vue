@@ -62,7 +62,7 @@ const carousselPicture = computed(() => {
           v-if="offerInfos.pictures.data?.length > 1"
         />
 
-        <img :src="carousselPicture.state.value" alt="" id="article" />
+        <img :src="carousselPicture.state.value" alt="photos de l'article" id="article" />
 
         <font-awesome-icon
           :icon="['fas', 'angle-right']"
@@ -118,7 +118,7 @@ const carousselPicture = computed(() => {
 #article {
   width: 480px;
   height: 330px;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 section {

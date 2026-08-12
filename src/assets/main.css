@@ -3,6 +3,9 @@
 :root {
   --header-height: 120px;
   --footer-height: 75px;
+  --med-grey: #e6eaee;
+  --orange-button: #ec5a12;
+  --brown: #89380f;
 }
 
 .container {

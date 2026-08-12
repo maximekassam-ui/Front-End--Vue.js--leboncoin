@@ -103,7 +103,7 @@ const handlePayment = async () => {
 <template>
   <main>
     <div class="container">
-      <h1>Finalisez votre payement</h1>
+      <h1>Finalisez votre paiement</h1>
       <div>
         <section id="buyerInfos">
           <form>
@@ -112,7 +112,7 @@ const handlePayment = async () => {
               <p>Une pièce d'identité vous sera demandée pour récupérer votre colis.</p>
             </div>
 
-            <div>
+            <div id="inputs">
               <label for="firstname">Prénom</label>
               <input
                 type="text"
@@ -122,9 +122,7 @@ const handlePayment = async () => {
                 placeholder="Prénom"
                 @input="errorMessage = ''"
               />
-            </div>
 
-            <div>
               <label for="lastname">Nom</label>
               <input
                 type="text"
@@ -134,9 +132,7 @@ const handlePayment = async () => {
                 placeholder="Nom"
                 @input="errorMessage = ''"
               />
-            </div>
 
-            <div>
               <label for="phoneNum">Téléphone</label>
               <input
                 type="number"
@@ -145,8 +141,9 @@ const handlePayment = async () => {
                 v-model="phoneNum"
                 placeholder="Téléphone"
               />
-              <p>Recevoir un SMS pour l’arrivée de votre colis ou votre code de locker</p>
             </div>
+
+            <p>Recevoir un SMS pour l’arrivée de votre colis ou votre code de locker</p>
           </form>
 
           <p>
@@ -159,9 +156,12 @@ const handlePayment = async () => {
             <p v-if="confirmedPayment">Commande effectuée</p>
             <div v-else>
               <div id="card-element"></div>
-              <button @click="handlePayment" :disabled="isProcessing">Payer</button>
 
-              <span v-if="errorMessage">{{ errorMessage }}</span>
+              <div id="submitDiv">
+                <button @click="handlePayment" :disabled="isProcessing">Payer</button>
+
+                <span v-if="errorMessage">{{ errorMessage }}</span>
+              </div>
             </div>
 
             <div>
@@ -176,7 +176,7 @@ const handlePayment = async () => {
             </div>
           </div>
         </section>
-        <p v-if="isLoading">Chargement en cours...</p>
+        <p id="isLoading" v-if="isLoading">Chargement en cours...</p>
         <section id="productRecap" v-else>
           <div id="articleDiv">
             <img
@@ -184,12 +184,12 @@ const handlePayment = async () => {
               alt="photo du produit"
             />
             <h3>{{ articleInfos.attributes.title }}</h3>
-            <p>{{ articleInfos.attributes.price }} €</p>
+            <p class="price">{{ articleInfos.attributes.price }} €</p>
           </div>
-          <div>
+          <div id="pickUpPart">
             <h3>Mode de remise</h3>
 
-            <div>
+            <div class="radioDiv">
               <input
                 type="radio"
                 name="pickUpInperson"
@@ -199,15 +199,13 @@ const handlePayment = async () => {
               />
               <label for="pickUpInPerson"
                 >Remise en main propre
-                <span
-                  >Payez en ligne et récupérez votre achat en main propre lors de votre rendez-vous
-                  avec le vendeur</span
-                >
+                <p>Payez en ligne et récupérez votre achat en main</p>
+                <p>propre lors de votre rendez-vous avec le vendeur</p>
               </label>
             </div>
 
-            <div>
-              <div>
+            <div id="shippingDiv">
+              <div class="radioDiv">
                 <input
                   type="radio"
                   name="shipping"
@@ -217,29 +215,29 @@ const handlePayment = async () => {
                 />
                 <label for="shipping">
                   Colissimo
-                  <span>à votre domicile sous 2-3 jours </span>
+                  <p>à votre domicile sous 2-3 jours</p>
                 </label>
               </div>
-              <div id="shippingPrice" class="price">15,60 €</div>
+              <p id="shippingPrice" class="price">15,60 €</p>
             </div>
 
             <div id="protection">
               <h3>Protection leboncoin</h3>
-              <div class="price">0,99 €</div>
+              <p class="price">0,99 €</p>
             </div>
 
-            <div>
+            <div class="iconDiv">
               <font-awesome-icon :icon="['fas', 'check']" />
               <p>Votre argent est sécurisé et versé au bon moment</p>
             </div>
-            <div>
+            <div class="iconDiv">
               <font-awesome-icon :icon="['fas', 'check']" />
               <p>Notre service client dédié vous accompagne</p>
             </div>
           </div>
-          <div>
+          <div id="total">
             <h2>Total</h2>
-            <div class="price">{{ amount }}</div>
+            <p class="price">{{ amount }}</p>
           </div>
         </section>
       </div>
@@ -250,41 +248,213 @@ const handlePayment = async () => {
 <style scoped>
 main {
   height: calc(100vh - var(--header-height));
+  display: block;
 }
 
 .container {
   height: 100%;
   display: flex;
   flex-direction: column;
+  padding: 40px 0;
+}
+
+h1 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 20px;
 }
 h1 + div {
   height: 100%;
-  border: blue solid 2px;
+  width: 100%;
+  /* border: blue solid 2px; */
   display: flex;
   justify-content: space-between;
 }
 
 #buyerInfos {
-  border: red solid 2px;
+  /* border: red solid 2px; */
   height: 100%;
   width: 670px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 form {
   height: 405px;
-  box-shadow: 0 0 10px grey;
+  box-shadow: 0 0 10px var(--med-grey);
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding: 30px;
 }
+h2 {
+  font-size: 18px;
+  font-weight: 700;
+}
+p {
+  font-size: 12px;
+}
+
+/* ----------- Form Part ------------ */
+#inputs {
+  display: flex;
+  flex-direction: column;
+}
+input {
+  height: 45px;
+  border-radius: 15px;
+  border: solid 1px var(--med-grey);
+  padding-left: 15px;
+  font-size: 16px;
+}
+input:focus {
+  outline: none;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+label {
+  font-size: 18px;
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
+div + p {
+  margin: 5px 0;
+}
+/* ------------Card Part ----------------- */
+#divCard {
+  box-shadow: 0 0 10px var(--med-grey);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 30px;
+  flex: 1;
+}
+#card-element {
+  min-height: 45px;
+  border: solid 1px var(--med-grey);
+  border-radius: 15px;
+  padding: 15px;
+  margin: 20px 0;
+}
+button {
+  background-color: var(--orange-button);
+  border: none;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 10px 15px;
+  border-radius: 15px;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+div > p {
+  font-size: 12px;
+  margin: 5px 0;
+}
+#submitDiv {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+#submitDiv span {
+  color: var(--orange-button);
+  font-size: 16px;
+}
+
+/* ----------- Product Part ------------- */
+#isLoading {
+  font-size: 18px;
+  font-weight: bold;
+}
+
 #productRecap {
-  border: solid green 2px;
+  box-shadow: 0 0 5px var(--med-grey);
   width: 355px;
+  height: min-content;
+  border-radius: 10px;
+}
+#articleDiv {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
 }
 
 img {
-  height: 100px;
-  width: 100px;
+  height: 80px;
+  width: 80px;
   object-fit: cover;
+}
+/* ------------- Shipping Part ---------- */
+h3 {
+  font-size: 16px;
+  font-weight: 700;
+}
+.price {
+  color: var(--brown);
+  font-weight: 700;
+  font-size: 16px;
+}
+#pickUpPart {
+  margin: 20px 0;
+  border-top: solid 1px var(--med-grey);
+  border-bottom: solid 1px var(--med-grey);
+  padding: 15px;
+}
+.radioDiv {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.radioDiv label {
+  font-size: 16px;
+  margin: 10px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  gap: 5px;
+}
+
+.radioDiv p {
+  color: grey;
+  margin: 5px 0;
+}
+
+#shippingDiv {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+/* ------------- Protection Part ----------- */
+
+#protection {
+  margin: 10px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.iconDiv {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+}
+svg {
+  color: green;
+}
+.iconDiv p {
+  font-size: 16px;
+}
+/* -------------- Total ------------ */
+#total {
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 </style>

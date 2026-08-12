@@ -5,6 +5,7 @@ import HomeView from '../views/HomeView.vue'
 import LoginView from '../views/LoginView.vue'
 import SignupView from '../views/SignUpView.vue'
 import PaymentView from '@/views/PaymentView.vue'
+import NotFoundView from '@/views/NotFoundView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -53,6 +54,11 @@ const router = createRouter({
       component: PaymentView,
       meta: { requireAuth: true },
       props: true,
+    },
+    {
+      path: '/:catchAll(.*)',
+      name: 'notFound',
+      component: NotFoundView,
     },
   ],
   scrollBehavior() {

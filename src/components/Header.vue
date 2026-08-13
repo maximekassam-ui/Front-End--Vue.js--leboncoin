@@ -5,8 +5,6 @@ import { inject, ref } from 'vue'
 
 const GlobalStore = inject('GlobalStore')
 
-let isConnected = false
-
 const route = useRoute()
 const router = useRouter()
 
@@ -27,6 +25,15 @@ const handleResearch = () => {
 
   router.push({ name: 'home', query: queries })
 }
+
+const reInitialise = (event) => {
+  if (event.target.value === '') {
+    const queries = { ...route.query }
+    delete queries.title
+
+    router.push({ name: 'home', query: queries })
+  }
+}
 </script>
 
 <template>
@@ -38,7 +45,13 @@ const handleResearch = () => {
         <BtnPublishOffer />
 
         <form @submit.prevent="handleResearch">
-          <input type="text" v-model="search" id="search" placeholder="Rechercher sur leboncoin" />
+          <input
+            type="text"
+            v-model="search"
+            id="search"
+            placeholder="Rechercher sur leboncoin"
+            @input="reInitialise"
+          />
           <button><font-awesome-icon :icon="['fas', 'search']" class="glasse" /></button>
         </form>
       </section>
@@ -182,7 +195,7 @@ input:focus {
   font-size: 13px;
 }
 
-#profil a {
+#profil {
   display: flex;
   flex-direction: column;
   align-items: center;

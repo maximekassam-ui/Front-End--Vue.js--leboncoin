@@ -44,8 +44,10 @@ const handleResearch = () => {
       </section>
       <div id="userProfil" v-if="GlobalStore.userInfos.value.username">
         <div id="profil">
-          <font-awesome-icon :icon="['far', 'user']" />
-          <p>{{ GlobalStore.userInfos.value.username }}</p>
+          <RouterLink :to="{ name: 'profile' }">
+            <font-awesome-icon :icon="['far', 'user']" />
+            <p>{{ GlobalStore.userInfos.value.username }}</p></RouterLink
+          >
         </div>
 
         <font-awesome-icon
@@ -180,7 +182,7 @@ input:focus {
   font-size: 13px;
 }
 
-#profil {
+#profil a {
   display: flex;
   flex-direction: column;
   align-items: center;

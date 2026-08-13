@@ -249,7 +249,7 @@ const handlePayment = async () => {
 
 <style scoped>
 main {
-  min-height: calc(100vh - var(--header-height) - var(--footer-height));
+  min-height: calc(100vh - (var(--header-height) + var(--footer-height)));
   display: block;
 }
 

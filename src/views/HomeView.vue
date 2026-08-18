@@ -81,7 +81,7 @@ onMounted(() => {
 h2 {
   font-size: 24px;
   text-align: center;
-  padding: 25px;
+  padding: 0 0 25px;
   font-weight: bold;
 }
 
@@ -97,5 +97,15 @@ a {
   color: inherit;
 }
 
-/* -------------------------------------- */
+/* ------------ Media Query ----------------- */
+@media (max-width: 1050px) {
+  h2 {
+    font-size: 20px;
+  }
+}
+@media (max-width: 650px) {
+  h2 {
+    font-size: 14px;
+  }
+}
 </style>

@@ -32,6 +32,9 @@ import {
   faCheck,
   faArrowLeft,
   faTrash,
+  faBan,
+  faSortAmountUp,
+  faSortAmountDown,
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -53,6 +56,9 @@ library.add(
   faCheck,
   faArrowLeft,
   faTrash,
+  faBan,
+  faSortAmountUp,
+  faSortAmountDown,
 )
 
 app.use(router)

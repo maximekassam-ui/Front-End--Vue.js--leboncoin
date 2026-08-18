@@ -72,16 +72,23 @@ const submitFilters = () => {
     <div>
       <p>Tri</p>
       <div id="sort">
-        <label>
-          Prix croissants
-          <input type="radio" value="price:asc" id="price:asc" v-model="sort"
-        /></label>
-
         <label
-          >Prix décroissants <input type="radio" value="price:desc" id="price:desc" v-model="sort"
+          ><span class="show"> Prix croissants </span>
+          <font-awesome-icon class="hidden" :icon="['fas', 'sort-amount-up']"
         /></label>
+        <input type="radio" value="price:asc" id="price:asc" v-model="sort" />
 
-        <label>Pas de tri <input type="radio" id="noSort" value="" v-model="sort" /></label>
+        <label>
+          <span class="show">Prix décroissants </span
+          ><font-awesome-icon class="hidden" :icon="['fas', 'sort-amount-up']"
+        /></label>
+        <input type="radio" value="price:desc" id="price:desc" v-model="sort" />
+
+        <label>
+          <span class="show">Pas de tri </span
+          ><font-awesome-icon class="hidden" :icon="['fas', 'ban']"
+        /></label>
+        <input type="radio" id="noSort" value="" v-model="sort" />
       </div>
     </div>
     <button>Rechercher</button>
@@ -94,6 +101,7 @@ form {
   display: flex;
   align-items: center;
   padding-top: 20px;
+  margin: 40px 0;
 }
 form > div {
   height: 74px;
@@ -139,11 +147,14 @@ div > p {
 }
 
 #sort {
-  gap: 10px;
+  gap: 2px;
 }
 
-label > input {
-  margin-right: 10px;
+label + input {
+  margin-right: 13px;
+}
+.hidden {
+  display: none;
 }
 button {
   background-color: #ec5a12;
@@ -164,5 +175,43 @@ input::-webkit-inner-spin-button {
 input:focus {
   outline: none;
   padding: 10px;
+}
+/* ----------- Media Query --------- */
+@media (max-width: 1050px) {
+  form {
+    /* background-color: aqua; */
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    height: fit-content;
+  }
+  form > div {
+    align-items: center;
+  }
+}
+@media (max-width: 650px) {
+  .form {
+    background-color: pink;
+  }
+  .price {
+    width: 135px;
+  }
+  .price > input {
+    height: 35px;
+    width: 100px;
+    font-size: 14px;
+  }
+  .show {
+    display: none;
+  }
+  .hidden {
+    display: inline;
+  }
+  #sort {
+    gap: 0px;
+  }
+  label + input {
+    margin-right: 16px;
+  }
 }
 </style>

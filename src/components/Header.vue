@@ -37,14 +37,14 @@ const reInitialise = (event) => {
 </script>
 
 <template>
-  <header>
+  <header class="container">
     <div id="research" class="container">
       <RouterLink :to="{ name: 'home' }"> <img src="../assets/img/logo.svg" alt="" /> </RouterLink>
 
       <section>
-        <BtnPublishOffer />
+        <BtnPublishOffer id="hiddenBtn" />
 
-        <form @submit.prevent="handleResearch">
+        <form @submit.prevent="handleResearch" id="hidden650">
           <input
             type="text"
             v-model="search"
@@ -55,12 +55,13 @@ const reInitialise = (event) => {
           <button><font-awesome-icon :icon="['fas', 'search']" class="glasse" /></button>
         </form>
       </section>
+
       <div id="userProfil" v-if="GlobalStore.userInfos.value.username">
         <div id="profil">
           <RouterLink :to="{ name: 'profile' }">
             <font-awesome-icon :icon="['far', 'user']" />
-            <p>{{ GlobalStore.userInfos.value.username }}</p></RouterLink
-          >
+            <p>{{ GlobalStore.userInfos.value.username }}</p>
+          </RouterLink>
         </div>
 
         <font-awesome-icon
@@ -77,6 +78,18 @@ const reInitialise = (event) => {
         </div></RouterLink
       >
     </div>
+
+    <form @submit.prevent="handleResearch" id="show650">
+      <input
+        type="text"
+        v-model="search"
+        id="search"
+        placeholder="Rechercher sur leboncoin"
+        @input="reInitialise"
+      />
+      <button><font-awesome-icon :icon="['fas', 'search']" class="glasse" /></button>
+    </form>
+
     <nav id="navigation" class="container">
       <p>Immobilier</p>
       <font-awesome-icon :icon="['fas', 'circle']" />
@@ -175,6 +188,9 @@ input:focus {
   border: none;
   cursor: pointer;
 }
+#show650 {
+  display: none;
+}
 
 /* --------------PARTIE CONNEXION ---------------- */
 
@@ -195,7 +211,7 @@ input:focus {
   font-size: 13px;
 }
 
-#profil {
+#profil a {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -228,5 +244,52 @@ nav {
 
 #navigation svg {
   font-size: 2px;
+}
+
+/* --------- Media Query ---------- */
+
+@media (max-width: 1090px) {
+  header .container:last-child {
+    padding: 0;
+  }
+  nav {
+    height: fit-content;
+  }
+}
+
+@media (max-width: 970px) {
+  #hiddenBtn {
+    display: none;
+  }
+  #navigation {
+    overflow: scroll hidden;
+    justify-content: flex-start;
+    gap: 13px;
+    scrollbar-width: none;
+  }
+  #navigation p {
+    flex-shrink: 0;
+  }
+}
+
+@media (max-width: 650px) {
+  #hidden650 {
+    display: none;
+  }
+  #show650 {
+    background-color: #f4f9fd;
+    width: 100%;
+    display: flex;
+    padding: 5px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    align-items: center;
+  }
+  #show650 input {
+    flex: 1;
+  }
+  header {
+    height: max-content;
+  }
 }
 </style>

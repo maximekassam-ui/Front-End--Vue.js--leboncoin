@@ -3,6 +3,8 @@ import { ref, onMounted, inject, computed } from 'vue'
 import axios from 'axios'
 import { useRouter } from 'vue-router'
 
+import BtnPublishOffer from '@/components/BtnPublishOffer.vue'
+
 const userInfos = ref(null)
 const isLoading = ref(true)
 
@@ -62,7 +64,7 @@ const deleteOffer = async (id) => {
             <p>{{ userInfos.email }}</p>
           </div>
         </div>
-        <div v-if="userInfos.offers">
+        <div v-if="userInfos.offers.length > 0">
           <h4>{{ offersNum }}</h4>
           <div id="offers">
             <div v-for="offer in userInfos.offers" :key="offer.id">
@@ -74,7 +76,10 @@ const deleteOffer = async (id) => {
             </div>
           </div>
         </div>
-        <p v-else>Aucune annonce pour le moment</p>
+        <div v-else class="noOffer">
+          <p>Vous n'avez aucune annonce en ligne</p>
+          <btn-publish-offer />
+        </div>
       </div>
     </div>
   </main>
@@ -169,5 +174,15 @@ h4 {
 }
 svg {
   color: var(--orange-button);
+}
+.noOffer {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+.noOffer p {
+  font-size: 16px;
 }
 </style>

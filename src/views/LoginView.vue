@@ -148,7 +148,7 @@ sup {
   align-self: flex-start;
 }
 input {
-  width: 420px;
+  max-width: 420px;
   height: 45px;
   padding: 12px;
   border-radius: 14px;
@@ -189,7 +189,7 @@ input:focus {
 }
 
 button {
-  width: 420px;
+  max-width: 420px;
   height: 43px;
   background-color: #ec5a12;
   color: white;
@@ -223,5 +223,19 @@ button svg {
   font-size: 16px;
   color: #ec5a12;
   margin-bottom: 20px;
+}
+
+/* --------- Media Query ---------- */
+
+@media (max-width: 450px) {
+  form {
+    width: 300px;
+  }
+  #create {
+    display: inline-grid;
+  }
+  button {
+    width: 100%;
+  }
 }
 </style>

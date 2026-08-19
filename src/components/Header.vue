@@ -289,7 +289,8 @@ nav {
     flex: 1;
   }
   header {
-    height: max-content;
+    height: calc(var(--header-height) + 45px);
+    padding: 0 10px;
   }
 }
 </style>

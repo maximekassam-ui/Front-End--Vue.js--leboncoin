@@ -278,4 +278,10 @@ a button {
     margin-bottom: 40px;
   }
 }
+
+@media (max-width: 450px) {
+  #offerDiv {
+    padding-top: 0;
+  }
+}
 </style>

@@ -99,4 +99,13 @@ svg {
     font-size: 14px;
   }
 }
+@media (max-width: 450px) {
+  div > div {
+    height: 25px;
+    width: 25px;
+  }
+  p {
+    font-size: 12px;
+  }
+}
 </style>

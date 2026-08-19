@@ -78,10 +78,13 @@ const clearErrorMessage = () => {
           </div>
         </section>
 
-        <button v-if="!isSubmitting">
-          Se connecter <font-awesome-icon :icon="['fas', 'arrow-right']" />
+        <button>
+          <p v-if="!isSubmitting">
+            Se connecter <font-awesome-icon :icon="['fas', 'arrow-right']" />
+          </p>
+          <p v-else id="connectionMsg">Connexion en cours...</p>
         </button>
-        <p v-else>Connexion en cours...</p>
+
         <p id="errorMessage" v-if="errorMessage">{{ errorMessage }}</p>
 
         <div id="create">
@@ -180,6 +183,9 @@ input:focus {
   border-left: none;
   border-radius: 0 14px 14px 0;
   color: grey;
+}
+#connectionMsg {
+  text-align: center;
 }
 
 button {

@@ -144,8 +144,11 @@ const urlsListPreview = computed(() => {
         <div v-if="pictures" id="previewImg">
           <img v-for="url in urlsListPreview" :src="url" alt="Photos de l'article" />
         </div>
-        <p v-if="isPublishing">Envoi en cours...</p>
-        <button v-else>Déposer mon annonce</button>
+
+        <button>
+          <p v-if="isPublishing">Envoi en cours...</p>
+          <p v-else>Déposer mon annonce</p>
+        </button>
         <div v-if="errorMessage">
           <p id="errorMessage">{{ errorMessage }}</p>
         </div>
@@ -181,7 +184,7 @@ h1 {
 .textareaDiv {
   display: flex;
   flex-direction: column;
-  width: 770px;
+  max-width: 770px;
 }
 
 .titleDiv input {
@@ -235,7 +238,7 @@ textarea {
   display: none;
 }
 .picturesDiv label {
-  width: 1010px;
+  max-width: 1010px;
   height: 180px;
 }
 #fileDiv {

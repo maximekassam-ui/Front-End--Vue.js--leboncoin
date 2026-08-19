@@ -69,13 +69,13 @@ div > div {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 45px;
-  width: 45px;
+  height: 40px;
+  width: 40px;
   border-radius: 5px;
   cursor: pointer;
 }
 p {
-  font-size: 18px;
+  font-size: 16px;
 }
 .mainPage {
   background-color: #152233;
@@ -88,5 +88,15 @@ svg {
 .noClick {
   color: #e6eaee;
   cursor: default;
+}
+
+@media (max-width: 650px) {
+  div > div {
+    height: 35px;
+    width: 35px;
+  }
+  p {
+    font-size: 14px;
+  }
 }
 </style>

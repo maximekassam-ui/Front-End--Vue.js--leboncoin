@@ -88,13 +88,16 @@ h2 {
 .offers {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  gap: 40px 15px;
 }
 
 /* ---------- ROUTERLINK -------------- */
 a {
-  text-decoration: none;
-  color: inherit;
+  width: calc((100% - 60px) / 5);
+  height: 380px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 /* ------------ Media Query ----------------- */
@@ -102,10 +105,25 @@ a {
   h2 {
     font-size: 20px;
   }
+  a {
+    height: 400px;
+    width: calc((100% - 45px) / 4);
+  }
 }
+
+@media (max-width: 880px) {
+  a {
+    height: 450px;
+    width: calc((100% - 30px) / 3);
+  }
+}
+
 @media (max-width: 650px) {
   h2 {
     font-size: 14px;
+  }
+  a {
+    width: calc((100% - 15px) / 2);
   }
 }
 </style>

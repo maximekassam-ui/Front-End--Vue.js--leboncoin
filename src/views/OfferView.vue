@@ -74,6 +74,13 @@ const carousselPicture = computed(() => {
       <h1>{{ offerInfos.title }}</h1>
       <p>{{ formatedPrice }} €</p>
       <span>{{ dateOfPublication }}</span>
+
+      <div id="hiddenButton">
+        <RouterLink :to="{ name: 'payment', params: { id: id } }">
+          <button style="background-color: #ec5a12">Acheter</button>
+        </RouterLink>
+      </div>
+
       <div id="description">
         <h3>Description</h3>
         <p>{{ offerInfos.description }}</p>
@@ -103,8 +110,8 @@ const carousselPicture = computed(() => {
 
       <div id="button">
         <RouterLink :to="{ name: 'payment', params: { id: id } }">
-          <button style="background-color: #ec5a12">Acheter</button></RouterLink
-        >
+          <button style="background-color: #ec5a12">Acheter</button>
+        </RouterLink>
 
         <button style="background: #094171">Message</button>
       </div>
@@ -125,7 +132,7 @@ section {
   padding-top: 40px;
   display: flex;
   gap: 50px;
-  height: calc(100vh - 195px);
+  height: calc(100vh - (var(--header-heigth)+ var(--footer-heigth)));
 }
 
 #offerDiv {
@@ -170,10 +177,14 @@ h1 + p {
 span {
   color: grey;
   margin-bottom: 50px;
+  font-size: 12px;
+}
+#hiddenButton {
+  display: none;
 }
 
 #description {
-  border-top: solid 1px grey;
+  border-top: solid 1px #e6eaee;
   padding: 20px 0 40px 0;
 }
 
@@ -185,7 +196,7 @@ h3 {
 
 #location {
   display: flex;
-  border-top: solid 1px grey;
+  border-top: solid 1px #e6eaee;
   padding: 15px 0;
   gap: 10px;
 }
@@ -195,7 +206,7 @@ h3 {
 #userDiv {
   width: 40%;
   height: 380px;
-  box-shadow: 0 0 2px black;
+  box-shadow: 0 0 3px 5px #e6eaee;
   padding: 30px;
 }
 
@@ -248,5 +259,23 @@ a {
 }
 a button {
   width: 100%;
+}
+
+/* -------- Media Query --------- */
+
+@media (max-width: 970px) {
+  #userDiv {
+    display: none;
+  }
+  #offerDiv {
+    flex: 1;
+  }
+  #article {
+    margin: 0 auto;
+  }
+  #hiddenButton {
+    display: block;
+    margin-bottom: 40px;
+  }
 }
 </style>

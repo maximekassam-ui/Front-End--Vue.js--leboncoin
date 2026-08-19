@@ -49,43 +49,44 @@ if (price.length > 4) {
 
 <style scoped>
 #card {
-  width: 190px;
-  height: 450px;
-  margin-bottom: 20px;
+  height: 100%;
+
   display: flex;
   flex-direction: column;
   position: relative;
+  /* border: solid red 1px; */
 }
 
 #productPicture {
   width: 100%;
-  height: 250px;
+  height: 240px;
   object-fit: cover;
   border-radius: 10px;
-  margin-bottom: 10px;
+  margin: 7px 0 5px;
 }
 
 #avatar {
-  height: 35px;
-  width: 35px;
+  height: 25px;
+  width: 25px;
   border-radius: 50%;
+  object-fit: cover;
 }
 
 #user {
-  height: 50px;
+  height: 30px;
   display: flex;
-  justify-content: flex-start;
   align-items: center;
-  gap: 10px;
+  gap: 5px;
 }
 
 h2 {
   font-weight: bold;
-  font-size: 18px;
+  font-size: 14px;
+  margin-top: 5px;
 }
 
 h3 {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: bold;
   margin-bottom: 5px;
 }
@@ -100,11 +101,20 @@ h3 {
   bottom: 5px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: baseline;
   color: grey;
+  font-size: 12px;
 }
 
 #date svg {
-  font-size: 22px;
+  font-size: 16px;
+}
+
+/* --------- Media Query -------- */
+
+@media (max-width: 1050px) {
+  #productPicture {
+    height: 300px;
+  }
 }
 </style>

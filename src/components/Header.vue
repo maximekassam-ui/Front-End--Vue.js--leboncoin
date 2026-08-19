@@ -37,7 +37,7 @@ const reInitialise = (event) => {
 </script>
 
 <template>
-  <header class="container">
+  <header>
     <div id="research" class="container">
       <RouterLink :to="{ name: 'home' }"> <img src="../assets/img/logo.svg" alt="" /> </RouterLink>
 

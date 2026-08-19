@@ -185,4 +185,15 @@ svg {
 .noOffer p {
   font-size: 16px;
 }
+
+/* --------- Media Query --------- */
+
+@media (max-width: 640px) {
+  #offers h2 {
+    font-size: 18px;
+  }
+  #offers span {
+    font-size: 16px;
+  }
+}
 </style>

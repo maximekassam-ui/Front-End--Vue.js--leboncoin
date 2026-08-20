@@ -221,4 +221,24 @@ button svg {
   color: #ec5a12;
   margin-bottom: 20px;
 }
+
+/* --------- Media Query --------- */
+
+@media (max-width: 500px) {
+  form {
+    max-width: 370px;
+  }
+  #username {
+    width: 100%;
+  }
+  #email {
+    width: 100%;
+  }
+  button {
+    width: 100%;
+  }
+  #login {
+    display: block;
+  }
+}
 </style>

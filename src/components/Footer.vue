@@ -20,8 +20,10 @@ footer {
 }
 
 div {
-  text-align: center;
-  padding: 30px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 a {

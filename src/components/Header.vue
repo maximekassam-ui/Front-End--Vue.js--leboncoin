@@ -38,13 +38,51 @@ const reInitialise = (event) => {
 
 <template>
   <header>
-    <div id="research" class="container">
-      <RouterLink :to="{ name: 'home' }"> <img src="../assets/img/logo.svg" alt="" /> </RouterLink>
+    <div class="container">
+      <div id="research">
+        <RouterLink :to="{ name: 'home' }">
+          <img src="../assets/img/logo.svg" alt="" />
+        </RouterLink>
 
-      <section>
-        <BtnPublishOffer id="hiddenBtn" />
+        <section>
+          <BtnPublishOffer id="hiddenBtn" />
 
-        <form @submit.prevent="handleResearch" id="hidden650">
+          <form @submit.prevent="handleResearch" id="hidden650">
+            <input
+              type="text"
+              v-model="search"
+              id="search"
+              placeholder="Rechercher sur leboncoin"
+              @input="reInitialise"
+            />
+            <button><font-awesome-icon :icon="['fas', 'search']" class="glasse" /></button>
+          </form>
+        </section>
+
+        <div id="userProfil" v-if="GlobalStore.userInfos.value.username">
+          <div id="profil">
+            <RouterLink :to="{ name: 'profile' }">
+              <font-awesome-icon :icon="['far', 'user']" />
+              <p>{{ GlobalStore.userInfos.value.username }}</p>
+            </RouterLink>
+          </div>
+
+          <font-awesome-icon
+            :icon="['fas', 'sign-out-alt']"
+            @click="GlobalStore.disconnectUser"
+            id="logout"
+          />
+        </div>
+
+        <RouterLink :to="{ name: 'login' }" v-else
+          ><div id="connection">
+            <font-awesome-icon :icon="['far', 'user']" />
+            <p>Se connecter</p>
+          </div></RouterLink
+        >
+      </div>
+      <div id="div650">
+        <form @submit.prevent="handleResearch" id="show650">
           <input
             type="text"
             v-model="search"
@@ -54,63 +92,30 @@ const reInitialise = (event) => {
           />
           <button><font-awesome-icon :icon="['fas', 'search']" class="glasse" /></button>
         </form>
-      </section>
-
-      <div id="userProfil" v-if="GlobalStore.userInfos.value.username">
-        <div id="profil">
-          <RouterLink :to="{ name: 'profile' }">
-            <font-awesome-icon :icon="['far', 'user']" />
-            <p>{{ GlobalStore.userInfos.value.username }}</p>
-          </RouterLink>
-        </div>
-
-        <font-awesome-icon
-          :icon="['fas', 'sign-out-alt']"
-          @click="GlobalStore.disconnectUser"
-          id="logout"
-        />
       </div>
 
-      <RouterLink :to="{ name: 'login' }" v-else
-        ><div id="connection">
-          <font-awesome-icon :icon="['far', 'user']" />
-          <p>Se connecter</p>
-        </div></RouterLink
-      >
+      <nav id="navigation">
+        <p>Immobilier</p>
+        <font-awesome-icon :icon="['fas', 'circle']" />
+        <p>Véhicules</p>
+        <font-awesome-icon :icon="['fas', 'circle']" />
+        <p>Locations de vacances</p>
+        <font-awesome-icon :icon="['fas', 'circle']" />
+        <p>Emploi</p>
+        <font-awesome-icon :icon="['fas', 'circle']" />
+        <p>Mode</p>
+        <font-awesome-icon :icon="['fas', 'circle']" />
+        <p>Maison & Jardin</p>
+        <font-awesome-icon :icon="['fas', 'circle']" />
+        <p>Famille</p>
+        <font-awesome-icon :icon="['fas', 'circle']" />
+        <p>Électronique</p>
+        <font-awesome-icon :icon="['fas', 'circle']" />
+        <p>Loisir</p>
+        <font-awesome-icon :icon="['fas', 'circle']" />
+        <p>Autres</p>
+      </nav>
     </div>
-
-    <form @submit.prevent="handleResearch" id="show650">
-      <input
-        type="text"
-        v-model="search"
-        id="search"
-        placeholder="Rechercher sur leboncoin"
-        @input="reInitialise"
-      />
-      <button><font-awesome-icon :icon="['fas', 'search']" class="glasse" /></button>
-    </form>
-
-    <nav id="navigation" class="container">
-      <p>Immobilier</p>
-      <font-awesome-icon :icon="['fas', 'circle']" />
-      <p>Véhicules</p>
-      <font-awesome-icon :icon="['fas', 'circle']" />
-      <p>Locations de vacances</p>
-      <font-awesome-icon :icon="['fas', 'circle']" />
-      <p>Emploi</p>
-      <font-awesome-icon :icon="['fas', 'circle']" />
-      <p>Mode</p>
-      <font-awesome-icon :icon="['fas', 'circle']" />
-      <p>Maison & Jardin</p>
-      <font-awesome-icon :icon="['fas', 'circle']" />
-      <p>Famille</p>
-      <font-awesome-icon :icon="['fas', 'circle']" />
-      <p>Électronique</p>
-      <font-awesome-icon :icon="['fas', 'circle']" />
-      <p>Loisir</p>
-      <font-awesome-icon :icon="['fas', 'circle']" />
-      <p>Autres</p>
-    </nav>
   </header>
 </template>
 
@@ -195,11 +200,11 @@ input:focus {
 /* --------------PARTIE CONNEXION ---------------- */
 
 #connection {
-  margin-right: 50px;
+  /* margin-right: 50px; */
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
+  gap: 5px;
 }
 
 #connection svg {
@@ -250,7 +255,7 @@ nav {
 
 @media (max-width: 1090px) {
   header .container:last-child {
-    padding: 0;
+    padding: 10px 20px 20px;
   }
   nav {
     height: fit-content;
@@ -280,17 +285,17 @@ nav {
     background-color: #f4f9fd;
     width: 100%;
     display: flex;
-    padding: 5px;
+    padding: 0 5px;
     border-radius: 10px;
     margin-bottom: 20px;
     align-items: center;
+    margin: 25px 0;
   }
   #show650 input {
     flex: 1;
   }
   header {
-    height: calc(var(--header-height) + 45px);
-    padding: 0 10px;
+    height: fit-content;
   }
 }
 </style>

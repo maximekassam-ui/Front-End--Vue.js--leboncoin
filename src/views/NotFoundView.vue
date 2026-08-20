@@ -32,7 +32,7 @@ main {
   flex-direction: column;
   justify-content: space-evenly;
   background-image: url('../assets/img/notfound-D8MXZORpLebonCoin.webp');
-  background-size: 47%;
+  background-size: contain;
   background-repeat: no-repeat;
   background-position: right;
 }
@@ -53,5 +53,12 @@ h1 {
 
   text-shadow: 0 0 5px var(--orange-button);
   color: white;
+}
+
+/* -------- Media Query ---------- */
+@media (max-width: 960px) {
+  .container {
+    background-color: #fafafa;
+  }
 }
 </style>

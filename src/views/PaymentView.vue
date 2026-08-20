@@ -270,7 +270,7 @@ h1 + div {
   width: 100%;
   /* border: blue solid 2px; */
   display: flex;
-  justify-content: space-between;
+  gap: 25px;
 }
 
 #buyerInfos {
@@ -381,7 +381,7 @@ div > p {
 
 #productRecap {
   box-shadow: 0 0 5px var(--med-grey);
-  width: 355px;
+  min-width: 370px;
   height: min-content;
   border-radius: 10px;
 }
@@ -468,5 +468,41 @@ svg {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+/* -------- Media Query -------- */
+
+@media (max-width: 1090px) {
+  .container {
+    padding: 10px 20px 20px;
+  }
+}
+@media (max-width: 880px) {
+  h1 + div {
+    flex-direction: column-reverse;
+  }
+  #buyerInfos {
+    width: 100%;
+  }
+}
+@media (max-width: 460px) {
+  .price {
+    font-size: 14px;
+  }
+  h3 {
+    font-size: 14px;
+  }
+  .radioDiv label {
+    font-size: 14px;
+  }
+  .iconDiv p {
+    font-size: 12px;
+  }
+  form {
+    height: fit-content;
+  }
+  #productRecap {
+    min-width: 300px;
+  }
 }
 </style>

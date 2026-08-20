@@ -294,6 +294,9 @@ nav {
   #show650 input {
     flex: 1;
   }
+  #search {
+    height: 40px;
+  }
   header {
     height: fit-content;
   }

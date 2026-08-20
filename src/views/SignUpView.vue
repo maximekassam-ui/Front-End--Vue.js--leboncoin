@@ -226,7 +226,7 @@ button svg {
 
 @media (max-width: 500px) {
   form {
-    max-width: 370px;
+    max-width: 300px;
   }
   #username {
     width: 100%;

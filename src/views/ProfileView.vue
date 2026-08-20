@@ -196,4 +196,18 @@ svg {
     font-size: 16px;
   }
 }
+@media (max-width: 500px) {
+  #offers > div {
+    height: fit-content;
+    flex-direction: column;
+    gap: 20px;
+    align-items: start;
+  }
+  #offers img {
+    width: 100%;
+  }
+  #offers svg {
+    align-self: flex-end;
+  }
+}
 </style>
